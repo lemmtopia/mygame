@@ -1,0 +1,15 @@
+* Game Design Document
+** Dados Básicos
+*** Descrição breve
+O jogo tem o objetivo de fazer o jogador sentir nostalgia pelos jogos de MS-DOS.
+O jogo é sobre plantar sementes para te ajudar no combate e na exploração.
+  - Plataforma, mas o jogador pode voar estilo Owlboy.
+  - Estilo fofo com cores de CGA/EGA para lembrar do MS-DOS.
+*** Público-alvo
+O público-alvo são adultos que sentem saudades dos jogos antigos de PC.
+*** Escopo
+Pequeno, com 5h de duração no máximo.
+** Dados técnicos
+*** Engine e linguagem de programação
+O jogo vai ser feito na maneira old-school, isto é, usando C. Mas, como não temos o acesso direto à GPU,
+teremos que usar uma biblioteca gráfica, no caso o SDL2.
