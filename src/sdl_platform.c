@@ -11,6 +11,11 @@ int running;
 SDL_Color black, white, cyan, magenta;
 Actor player;
 
+Uint32 pixels[WIDTH * HEIGHT];
+SDL_Texture *screen;
+
+SDL_Rect dest = {0, 0, WIDTH * 3, HEIGHT * 3};
+
 int initialize_sdl() {
   if (SDL_Init(SDL_INIT_VIDEO) != 0) {
     printf("%s", SDL_GetError());
@@ -55,7 +60,7 @@ int initialize_sdl() {
   white.b = 255;
   white.a = 255;
 
-  
+  screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB332, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
   printf("SDL has been initialized.\n");
   return TRUE;
 }
@@ -68,6 +73,7 @@ void process_input() {
 }
 
 void render() {
+  /*
   SDL_SetRenderDrawColor(renderer, black.r, black.g, black.b, black.a);
   SDL_RenderClear(renderer);
   
@@ -79,6 +85,19 @@ void render() {
   
   SDL_SetRenderDrawColor(renderer, magenta.r, magenta.g, magenta.b, magenta.a);
   SDL_RenderDrawLine(renderer, 200, 400, 300, 300);
+  */
+  
+  for (int i = 0; i < WIDTH * HEIGHT; i++) {
+    pixels[i]++;
+  }
+
+  /*
+  player.rect.x += 1;
+  player.rect.y += 1;
+  */
+  
+  SDL_UpdateTexture(screen, NULL, &pixels, 4);
+  SDL_RenderCopy(renderer, screen, NULL, &dest);
   
   SDL_RenderPresent(renderer);
 }
@@ -86,6 +105,10 @@ void render() {
 int main(void) {
   running = initialize_sdl();
   make_actor(&player, 30, 30, 40, 40, magenta);
+
+  for (int i = 0; i < WIDTH * HEIGHT; i++) {
+    pixels[i] = i;
+  }
 
   while (running == TRUE) {
     process_input();
