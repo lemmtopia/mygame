@@ -60,7 +60,7 @@ int initialize_sdl() {
   white.b = 255;
   white.a = 255;
 
-  screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB332, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
+  screen = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB444, SDL_TEXTUREACCESS_TARGET, WIDTH, HEIGHT);
   printf("SDL has been initialized.\n");
   return TRUE;
 }
@@ -69,6 +69,13 @@ void process_input() {
   SDL_Event ev;
   if (SDL_PollEvent(&ev)) {
     if (ev.type == SDL_QUIT) running = FALSE;
+    if (ev.type == SDL_KEYDOWN) {
+      switch (ev.key.keysym.sym) {
+      case SDLK_ESCAPE:
+	running = FALSE;
+	break;
+      }
+    }
   }
 }
 
